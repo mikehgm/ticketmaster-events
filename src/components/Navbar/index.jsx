@@ -4,12 +4,10 @@ const Navbar = ({ onSearch }) => {
     const [search, setSearch] = useState('');
 
     const  handleInputChange = (evt) => {
-        evt.stopPropagation();
         setSearch(evt.target.value);
     };
 
     const handleInputKeyDown = (evt) => {
-        evt.stopPropagation();
         if (evt.key === 'Enter') {
             onSearch(search)
         }
