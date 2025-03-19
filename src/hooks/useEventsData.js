@@ -1,16 +1,29 @@
-import { useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import eventsData from '../data/events.json';
 
 const useEventsData = () => {
-    const data = useRef(eventsData);
-    const {_embedded: {events}} = data.current;
+    const [ data, setData ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ error, setError ] = useState();
 
     useEffect(() => {
-        console.log('data', data.current);
-    }, [events]);
+        setTimeout(() => {
+            try{
+                setData(eventsData);
+            }
+            catch (error) {
+                setError(error);
+            }
+            setIsLoading(false);
+        }, 4000);
+    }, []);
+
+    console.log('events', data);
 
     return {
-        events
+        events: data?._embedded?.events || [],
+        isLoading,
+        error
     };
 }
 export default useEventsData;

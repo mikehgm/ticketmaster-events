@@ -2,7 +2,7 @@ import useEventsData from '../../hooks/useEventsData';
 import EventItem from './components/EventItem';
 
 const Events = ({searchEvent}) => {
-    const { events } = useEventsData();
+    const { events, isLoading, error } = useEventsData();
 
     const handleEventItemClick = (id) => {
         console.log('evento clicked', id)
@@ -26,6 +26,14 @@ const Events = ({searchEvent}) => {
             />
         ));
     };
+
+    if (error) {
+        return <div>Hubo un error al cargar los eventos</div>
+    }
+
+    if (isLoading) {
+        return <div>Cargando eventos...</div>
+    }
 
     return (
         <div>
