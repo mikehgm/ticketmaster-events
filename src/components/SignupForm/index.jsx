@@ -13,7 +13,7 @@ const SignupForm = () => {
         console.log(data);
     };
 
-    console.log("errors", errors);
+    //console.log("errors", errors);
 
     return (
         <div>SignupForm

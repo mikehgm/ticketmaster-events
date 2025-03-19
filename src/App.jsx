@@ -5,22 +5,24 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  /* const [searchEvent, setSearchEvent] = useState('');
+  const [searchEvent, setSearchEvent] = useState('');
+
+  /* useEffect(() => {
+    console.log('searchEvent', searchEvent);
+  }, [searchEvent]); */
 
   const handleNavbarSearch = (event) => {
     setSearchEvent(event);
   };
-
-  console.log(searchEvent, 10); */
 
   return (
     <>
       {
         <div>
           <h1>Vite + React</h1>
-          {/* <Navbar onSearch={handleNavbarSearch} />
-          <Events searchEvent={searchEvent} /> */}
-          <SignupForm />
+          <Navbar onSearch={handleNavbarSearch} />
+          <Events searchEvent={searchEvent} />
+          {/* <SignupForm /> */}
         </div>
       }
     </>
