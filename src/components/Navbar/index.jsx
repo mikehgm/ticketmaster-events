@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 
-const Navbar = ({ onSearch }) => {
+const Navbar = forwardRef(({ onSearch }, ref) => {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
         onSearch(search);
     }, [search, onSearch]);
+
+    useImperativeHandle(ref, () => ({
+        search
+    }));
 
     const  handleInputChange = (evt) => {
         setSearch(evt.target.value);
@@ -18,7 +22,14 @@ const Navbar = ({ onSearch }) => {
     }
 
     return (
-        <div>
+        <div ref={ref} style={
+            {
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '20px',
+                borderBottom: '1px solid #ccc'
+            }
+        }>
             <p>Mi boletera</p>
             <input placeholder="Busca tu evento" 
                 onChange={handleInputChange}
@@ -26,6 +37,8 @@ const Navbar = ({ onSearch }) => {
                 value={search}/>
         </div>
     )
-}
+});
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;
