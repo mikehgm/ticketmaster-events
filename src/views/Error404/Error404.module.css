@@ -1,0 +1,19 @@
+.container {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+}

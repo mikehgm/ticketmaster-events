@@ -15,7 +15,7 @@ const useEventsData = () => {
                 setError(error);
             }
             setIsLoading(false);
-        }, 4000);
+        }, 1000);
     }, []);
 
     console.log('events', data);
