@@ -1,19 +1,22 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Events from '../../components/Events';
 import SignupForm from '../../components/SignupForm';
+import useEventsData from '../../hooks/useEventsData';
+
 
 const Home = () => {
+    const { events, isLoading, error, fetchEvents } = useEventsData();
     const [searchEvent, setSearchEvent] = useState('');
     const containerRef = useRef();
 
-    /* useEffect(() => {
-        console.log('searchEvent', searchEvent);
-    }, [searchEvent]); */
+    useEffect(() => {
+        fetchEvents();
+    }, []);
 
     const handleNavbarSearch = (event) => {
-        console.log('containerRef', containerRef.current);
         setSearchEvent(event);
+        fetchEvents(event);
     };
 
     return (
@@ -22,7 +25,8 @@ const Home = () => {
             <div>
             <h1>Vite + React</h1>
             <Navbar onSearch={handleNavbarSearch} ref={containerRef} />
-            <Events searchEvent={searchEvent} />
+            { isLoading ? <div>Cargando eventos...</div> : <Events searchEvent={searchEvent} events={events}/> }
+            { !!error && <div>Hubo un error al cargar los eventos</div> }
             {/* <SignupForm /> */}
             </div>
         }
