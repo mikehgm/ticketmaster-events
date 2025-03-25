@@ -11,7 +11,12 @@ const Home = () => {
     const containerRef = useRef();
 
     useEffect(() => {
+    /* eslint-disable no-debugger */
+        debugger;
+        console.log("useEffect triggered");
         fetchEvents();
+    /* eslint-enable no-debugger */
+
     }, []);
 
     const handleNavbarSearch = (event) => {
