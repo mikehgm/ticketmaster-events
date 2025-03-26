@@ -4,9 +4,7 @@ const useEventsData = () => {
     const [ data, setData ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ error, setError ] = useState();
-    const apiKey = "raf3bEA4UqgxUSC7mwHoWXRIPC7OtgSe";
-    //const apiKey = "6a217765-bcfd-48a2-ad9f-1db981ebd40b";
-
+    const apiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
     const fetchEvents = useCallback(async (params) => {
 
@@ -14,7 +12,6 @@ const useEventsData = () => {
         setIsLoading(true);
         setError(null);
         try {
-            //const response = await fetch(`https://mocki.io/v1/${apiKey}`);
             const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&countryCode=MX${params?.length ? params : ''}`);
             const data = await response.json();
 
