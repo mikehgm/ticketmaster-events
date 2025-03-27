@@ -2,12 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Events from '../../components/Events';
 import SignupForm from '../../components/SignupForm';
-import useEventsData from '../../hooks/useEventsData';
+import useEventsResults from '../../state/events-results';
 import ReactPaginate from 'react-paginate';
 import styles from './Home.module.css';
 
 const Home = () => {
-    const { events, isLoading, error, fetchEvents, page } = useEventsData();
+    const { data, isLoading, error, fetchEvents } = useEventsResults();
+    const events = data?._embedded?.events || [];
+    const page = data?.page || {};
+    
     const [searchEvent, setSearchEvent] = useState('');
     const containerRef = useRef();
 
@@ -31,7 +34,7 @@ const Home = () => {
             return <div>Cargando eventos...</div>;
         }
 
-        if (error) {
+        if (error && Object.keys(error).length > 0) {
             return <div>Hubo un error al cargar los eventos</div>;
         }
 
