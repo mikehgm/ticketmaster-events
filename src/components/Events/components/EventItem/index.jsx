@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import HearthFilled from '../../../../assets/hearth-filled.png';
+import HearthUnfilled from '../../../../assets/hearth-unfilled.png';
 import styles from './EventItem.module.css';
 
 const EventItem = ({ info, name, image, id, onEventClick }) => {
@@ -9,7 +11,11 @@ const EventItem = ({ info, name, image, id, onEventClick }) => {
 
     return (
         <div className={`${styles.eventItemContainer} ${styles.anotherContainer}`}>
-            <img src={image} alt="image-event" width={200} height={200}/>
+            <div className={styles.imageContainer}>
+                <img src={HearthFilled} alt="icon-heart" className={styles.hearthFilled}/>
+                <img src={HearthUnfilled} alt="icon-heart" className={styles.hearthUnfilled} onClick={handleHearthClick}/>
+                <img src={image} alt="image-event" width={200} height={200}/>
+            </div>
             <div className={styles.eventInfoContainer}>
                 <h4 className={styles.eventName}>{name}</h4>
                 <p className={styles.eventInfo}>{info}</p>

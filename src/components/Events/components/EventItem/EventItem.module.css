@@ -36,7 +36,16 @@
     position: relative;
 }
 
-.hearthImage {
+.hearthFilled {
+    position: absolute;
+    width: 25px;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.hearthUnfilled {
     position: absolute;
     width: 25px;
     top: 10px;
