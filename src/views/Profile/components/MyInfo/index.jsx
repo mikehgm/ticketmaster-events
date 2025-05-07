@@ -1,10 +1,25 @@
 import { useForm } from 'react-hook-form';
 import styles from './MyInfo.module.css';
+import { useEffect } from 'react';
 
 const USER_DATA = 'userData';
 
 const MyInfo = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    useEffect(() => {
+        try {
+            const userData = JSON.parse(localStorage.getItem(USER_DATA)) || {};
+
+            if (userData) {
+                setValue('name', userData.name || '');
+                setValue('email', userData.email || '');
+                setValue('age', userData.age || '');
+            }   
+        } catch (error) {
+            console.error('Error parsing user data from localStorage', error);
+        }
+    }, [setValue]);
 
     const handleFormSubmit = (data) => {
         console.log('Form submitted', data);

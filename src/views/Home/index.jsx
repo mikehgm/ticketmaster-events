@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import Navbar from '../../components/Navbar';
 import Events from '../../components/Events';
 import SignupForm from '../../components/SignupForm';
@@ -8,15 +8,17 @@ import styles from './Home.module.css';
 
 const Home = () => {
     const { data, isLoading, error, fetchEvents } = useEventsResults();
-    const events = data?._embedded?.events || [];
-    const page = data?.page || {};
+    const events = useMemo(() => data?._embedded?.events || [], [data?._embedded?.events]);
+    const page = useMemo( () => data?.page || {}, [data?.page]);
     
     const [searchEvent, setSearchEvent] = useState('');
     const containerRef = useRef();
+    const fecthMyEventsRef = useRef();
+
+    fecthMyEventsRef.current = fetchEvents;
 
     useEffect(() => {
-        console.log("useEffect triggered");
-        fetchEvents();
+        fecthMyEventsRef.current();
     }, []);
 
     const handleNavbarSearch = (search) => {
@@ -24,10 +26,10 @@ const Home = () => {
         fetchEvents(`&keyword=${search}`);
     };
 
-    const handlePageClick = ({selected}) => {
+    const handlePageClick =useCallback(({selected}) => {
         console.log(selected);
         fetchEvents(`&keyword=${searchEvent}&page=${selected}`);
-    };
+    }, [searchEvent, fetchEvents]);
 
     const renderEvents = () => {
         if (isLoading) {
